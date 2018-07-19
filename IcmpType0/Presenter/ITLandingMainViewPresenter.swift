@@ -8,6 +8,25 @@
 
 import Foundation
 
-class ITLandingMainViewPresenter {
+class ITLandingMainViewPresenter: ITLandingMainViewPresenterProtocol {
+
+    private var viewDelegate: ITLandingMainViewControllerProtocol?
+    
+    // MARK: ITLandingMainViewPresenterProtocol
+    func setViewDelegate(delegate: ITLandingMainViewControllerProtocol) {
+        viewDelegate = delegate
+    }
+    
+    func fetchConversations() {
+        viewDelegate?.updateConversations()
+    }
+    
+    func conversationTapped() {
+    
+    }
+    
+    func composeButtonTapped() {
+        
+    }
     
 }

@@ -9,4 +9,8 @@
 import Foundation
 
 protocol ITLandingMainViewControllerProtocol {
+    
+    func updateConversations()
+    func goToConversation()
+    func createNewConversation()
 }
