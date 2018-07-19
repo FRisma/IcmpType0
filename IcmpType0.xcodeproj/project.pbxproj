@@ -8,11 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		CE2B08A12100E2A9004D7D0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08A02100E2A9004D7D0B /* AppDelegate.swift */; };
-		CE2B08A32100E2A9004D7D0B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08A22100E2A9004D7D0B /* ViewController.swift */; };
 		CE2B08A62100E2A9004D7D0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2B08A42100E2A9004D7D0B /* Main.storyboard */; };
 		CE2B08A82100E2AC004D7D0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE2B08A72100E2AC004D7D0B /* Assets.xcassets */; };
 		CE2B08AB2100E2AC004D7D0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2B08A92100E2AC004D7D0B /* LaunchScreen.storyboard */; };
 		CE2B08B62100E2AC004D7D0B /* IcmpType0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08B52100E2AC004D7D0B /* IcmpType0Tests.swift */; };
+		CE2B08C52100E32C004D7D0B /* ITLandingMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08C42100E32C004D7D0B /* ITLandingMainViewController.swift */; };
+		CE2B08C72100E346004D7D0B /* ITConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08C62100E346004D7D0B /* ITConversationViewController.swift */; };
+		CE2B08CB2100E37D004D7D0B /* ITConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08CA2100E37D004D7D0B /* ITConversationPresenter.swift */; };
+		CE2B08CD2100E392004D7D0B /* ITConversationPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08CC2100E392004D7D0B /* ITConversationPresenterProtocol.swift */; };
+		CE2B08CF2100E3B0004D7D0B /* ITLandingMainViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08CE2100E3B0004D7D0B /* ITLandingMainViewPresenterProtocol.swift */; };
+		CE2B08D12100E3BC004D7D0B /* ITLandingMainViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08D02100E3BC004D7D0B /* ITLandingMainViewPresenter.swift */; };
+		CE2B08D32100E493004D7D0B /* ITLandingMainViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08D22100E493004D7D0B /* ITLandingMainViewControllerProtocol.swift */; };
+		CE2B08D52100E4C6004D7D0B /* ITConversationViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08D42100E4C6004D7D0B /* ITConversationViewControllerProtocol.swift */; };
+		CE2B08D82100E4F3004D7D0B /* ITConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08D72100E4F3004D7D0B /* ITConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +36,6 @@
 /* Begin PBXFileReference section */
 		CE2B089D2100E2A9004D7D0B /* IcmpType0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IcmpType0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE2B08A02100E2A9004D7D0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CE2B08A22100E2A9004D7D0B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CE2B08A52100E2A9004D7D0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE2B08A72100E2AC004D7D0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE2B08AA2100E2AC004D7D0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +43,15 @@
 		CE2B08B12100E2AC004D7D0B /* IcmpType0Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IcmpType0Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE2B08B52100E2AC004D7D0B /* IcmpType0Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IcmpType0Tests.swift; sourceTree = "<group>"; };
 		CE2B08B72100E2AC004D7D0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE2B08C42100E32C004D7D0B /* ITLandingMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITLandingMainViewController.swift; sourceTree = "<group>"; };
+		CE2B08C62100E346004D7D0B /* ITConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITConversationViewController.swift; sourceTree = "<group>"; };
+		CE2B08CA2100E37D004D7D0B /* ITConversationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITConversationPresenter.swift; sourceTree = "<group>"; };
+		CE2B08CC2100E392004D7D0B /* ITConversationPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITConversationPresenterProtocol.swift; sourceTree = "<group>"; };
+		CE2B08CE2100E3B0004D7D0B /* ITLandingMainViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITLandingMainViewPresenterProtocol.swift; sourceTree = "<group>"; };
+		CE2B08D02100E3BC004D7D0B /* ITLandingMainViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITLandingMainViewPresenter.swift; sourceTree = "<group>"; };
+		CE2B08D22100E493004D7D0B /* ITLandingMainViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITLandingMainViewControllerProtocol.swift; sourceTree = "<group>"; };
+		CE2B08D42100E4C6004D7D0B /* ITConversationViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITConversationViewControllerProtocol.swift; sourceTree = "<group>"; };
+		CE2B08D72100E4F3004D7D0B /* ITConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,12 +93,11 @@
 		CE2B089F2100E2A9004D7D0B /* IcmpType0 */ = {
 			isa = PBXGroup;
 			children = (
-				CE2B08A02100E2A9004D7D0B /* AppDelegate.swift */,
-				CE2B08A22100E2A9004D7D0B /* ViewController.swift */,
-				CE2B08A42100E2A9004D7D0B /* Main.storyboard */,
-				CE2B08A72100E2AC004D7D0B /* Assets.xcassets */,
-				CE2B08A92100E2AC004D7D0B /* LaunchScreen.storyboard */,
-				CE2B08AC2100E2AC004D7D0B /* Info.plist */,
+				CE2B08D62100E4DF004D7D0B /* Utils */,
+				CE2B08C32100E2F6004D7D0B /* View */,
+				CE2B08C22100E2EC004D7D0B /* Presenter */,
+				CE2B08C12100E2E0004D7D0B /* Model */,
+				CE2B08C02100E2D0004D7D0B /* Supporting Files */,
 			);
 			path = IcmpType0;
 			sourceTree = "<group>";
@@ -94,6 +109,71 @@
 				CE2B08B72100E2AC004D7D0B /* Info.plist */,
 			);
 			path = IcmpType0Tests;
+			sourceTree = "<group>";
+		};
+		CE2B08C02100E2D0004D7D0B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CE2B08A02100E2A9004D7D0B /* AppDelegate.swift */,
+				CE2B08A42100E2A9004D7D0B /* Main.storyboard */,
+				CE2B08A72100E2AC004D7D0B /* Assets.xcassets */,
+				CE2B08A92100E2AC004D7D0B /* LaunchScreen.storyboard */,
+				CE2B08AC2100E2AC004D7D0B /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CE2B08C12100E2E0004D7D0B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CE2B08C22100E2EC004D7D0B /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				CE2B08C92100E353004D7D0B /* Protocols */,
+				CE2B08CA2100E37D004D7D0B /* ITConversationPresenter.swift */,
+				CE2B08D02100E3BC004D7D0B /* ITLandingMainViewPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		CE2B08C32100E2F6004D7D0B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE2B08C82100E34C004D7D0B /* Protocols */,
+				CE2B08C42100E32C004D7D0B /* ITLandingMainViewController.swift */,
+				CE2B08C62100E346004D7D0B /* ITConversationViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CE2B08C82100E34C004D7D0B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				CE2B08D22100E493004D7D0B /* ITLandingMainViewControllerProtocol.swift */,
+				CE2B08D42100E4C6004D7D0B /* ITConversationViewControllerProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		CE2B08C92100E353004D7D0B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				CE2B08CC2100E392004D7D0B /* ITConversationPresenterProtocol.swift */,
+				CE2B08CE2100E3B0004D7D0B /* ITLandingMainViewPresenterProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		CE2B08D62100E4DF004D7D0B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CE2B08D72100E4F3004D7D0B /* ITConstants.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,8 +277,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE2B08A32100E2A9004D7D0B /* ViewController.swift in Sources */,
+				CE2B08C72100E346004D7D0B /* ITConversationViewController.swift in Sources */,
+				CE2B08C52100E32C004D7D0B /* ITLandingMainViewController.swift in Sources */,
+				CE2B08D12100E3BC004D7D0B /* ITLandingMainViewPresenter.swift in Sources */,
 				CE2B08A12100E2A9004D7D0B /* AppDelegate.swift in Sources */,
+				CE2B08D32100E493004D7D0B /* ITLandingMainViewControllerProtocol.swift in Sources */,
+				CE2B08CD2100E392004D7D0B /* ITConversationPresenterProtocol.swift in Sources */,
+				CE2B08D82100E4F3004D7D0B /* ITConstants.swift in Sources */,
+				CE2B08CF2100E3B0004D7D0B /* ITLandingMainViewPresenterProtocol.swift in Sources */,
+				CE2B08D52100E4C6004D7D0B /* ITConversationViewControllerProtocol.swift in Sources */,
+				CE2B08CB2100E37D004D7D0B /* ITConversationPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
