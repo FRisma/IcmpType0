@@ -37,6 +37,8 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = .white
+        
         self.setupNavBar()
         self.setupSearchController()
         self.setupTableView()
@@ -46,12 +48,21 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
         super.viewWillAppear(animated)
         
         self.applyContraints()
+        
+        self.presenter.setViewDelegate(delegate: self)
         presenter.fetchConversations()
     }
     
     // MARK: ITLandingMainViewControllerProtocol
     func updateConversations() {
-        
+        peopleList = [["name" : "Roberto"],
+                      ["name" : "Roberto2"],
+                      ["name" : "Roberto3"],
+                      ["name" : "Roberto4"],
+                      ["name" : "Roberto5"],
+                      ["name" : "Roberto6"],
+                      ["name" : "Roberto7"]
+        ]
     }
     
     func goToConversation() {
@@ -73,6 +84,7 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "People") as! ITLandingMainTableViewCell
+        cell.profileName.text = "Franco"
         return cell
     }
     
@@ -101,11 +113,11 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         tableView.tableFooterView = UIView(frame: .zero)
-        tableView.bounces = false
+        tableView.bounces = true
         tableView.register(ITLandingMainTableViewCell.self, forCellReuseIdentifier: "People")
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
-        view.addSubview(self.tableView)
+        self.view.addSubview(self.tableView)
     }
     
     func applyContraints() {

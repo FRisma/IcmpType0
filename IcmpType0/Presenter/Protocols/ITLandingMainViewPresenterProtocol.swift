@@ -10,6 +10,7 @@ import Foundation
 
 protocol ITLandingMainViewPresenterProtocol {
     
+    func setViewDelegate(delegate :ITLandingMainViewControllerProtocol)
     func fetchConversations()
     func conversationTapped()
     func composeButtonTapped()

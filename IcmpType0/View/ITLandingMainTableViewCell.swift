@@ -18,7 +18,7 @@ class ITLandingMainTableViewCell: UITableViewCell {
         }
     }
     
-    private var profileName = UILabel()
+    var profileName = UILabel()
     private var profileImage = UIImageView(frame: .zero)
     
     private let containerView = UIView()
@@ -47,6 +47,11 @@ class ITLandingMainTableViewCell: UITableViewCell {
     private func applyConstraints() {
         containerView.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
+        }
+        
+        profileName.snp.makeConstraints { (make) in
+            make.top.equalTo(self.containerView)
+            make.left.equalTo(self.containerView)
         }
     }
     
