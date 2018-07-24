@@ -11,6 +11,6 @@ import Foundation
 protocol ITMessagingProviderProtocol {
     
     func send(message: Message, onCompletion:(NSError?) -> Void)
-    func get(messages: [Message], onCompletion:(Message, NSError?) -> Void)
+    func getMessages(onCompletion:(Messages?, NSError?) -> Void)
     func getChats(onCompletion:(Chats?, NSError?) -> Void)
 }

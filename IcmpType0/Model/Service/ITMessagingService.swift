@@ -35,14 +35,14 @@ class ITMessagingService: ITMessagingServiceProtocol {
         return arc4random_uniform(2) == 0
     }
     
-    func getChats(onCompletion: @escaping (Chats) -> Void) {
+    func getChats(onCompletion: @escaping (Chats?, NSError?) -> Void) {
         provider.getChats { (chats, error) in
             if error == nil {
                 print("Service \(chats!)")
-                onCompletion(chats!)
+                onCompletion(chats!,nil)
             } else {
                 print("service error")
-                //onCompletion(chats)
+                onCompletion(nil,NSError(domain: "com.IcmpType0", code: 123, userInfo: nil))
             }
         }
     }

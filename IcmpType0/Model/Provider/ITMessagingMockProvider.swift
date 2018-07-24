@@ -16,11 +16,16 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
     }
     
     func send(message: Message, onCompletion: (NSError?) -> Void) {
-        
+        onCompletion(nil)
     }
     
-    func get(messages: [Message], onCompletion: (Message, NSError?) -> Void) {
-        
+    func getMessages(onCompletion: (Messages?, NSError?) -> Void) {
+        guard let messages = try? JSONDecoder().decode(Messages.self, from: mockChats.data(using: .utf8)!) else {
+            print("Error: Couldn't decode data into Chat")
+            onCompletion(nil,NSError(domain:"com.icmpType0", code:500, userInfo:nil) )
+            return
+        }
+        onCompletion(messages,nil)
     }
     
     func getChats(onCompletion: (Chats?, NSError?) -> Void) {
@@ -29,7 +34,6 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
             onCompletion(nil,NSError(domain:"com.icmpType0", code:500, userInfo:nil) )
             return
         }
-        print(chats)
         onCompletion(chats,nil)
     }
     

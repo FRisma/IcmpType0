@@ -7,11 +7,14 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ITConversationViewControllerProtocol {
 
     func messageSent(message: String)
     func messageReceived(message: String)
+    func messageSent(message: UIImage)
+    func messageReceived(message: UIImage)
     func showError(info: String?)
     func goToDetails()
 }

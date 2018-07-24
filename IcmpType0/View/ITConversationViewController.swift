@@ -40,42 +40,18 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .savedPhotosAlbum
-        imagePicker.allowsEditing = false
-        
-        scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(scrollView)
-        
-        stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 10.0
-        stackView.isUserInteractionEnabled = false
-        scrollView.addSubview(stackView)
-        
-        textField = UITextField()
-        textField.delegate = self
-        textField.layer.cornerRadius = 10.0
-        textField.layer.borderWidth = 0.5
-        textField.placeholder = "Type a message";
-        textField.backgroundColor = .white
-        textField.returnKeyType = .send
-        view.addSubview(textField)
-        
         self.setupAttachmentButton()
+        self.setupImagePicker()
+        self.setupScrollAndStackView()
+        self.setupTextField()
         
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
         stackView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
             make.width.equalTo(view)
         }
-        
         textField.snp.makeConstraints { (make) in
             make.left.right.equalTo(view).inset(10)
             make.bottom.equalTo(view)
@@ -114,6 +90,26 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
                         alignment: .left)
     }
     
+    func messageSent(message: UIImage) {
+        let imageView = UIImageView(frame: .zero)
+        imageView.image = message
+        imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 70)
+        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        stackView.addArrangedSubview(imageView)
+        self.stackView.layoutIfNeeded()
+        scrollView.contentSize = stackView.frame.size
+    }
+    
+    func messageReceived(message: UIImage) {
+        let imageView = UIImageView(frame: .zero)
+        imageView.image = message
+        imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 70)
+        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        stackView.addArrangedSubview(imageView)
+        self.stackView.layoutIfNeeded()
+        scrollView.contentSize = stackView.frame.size
+    }
+    
     func showError(info: String?) {
         let alert = UIAlertController(title: "Error", message: info, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -138,11 +134,23 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     
     // MARK: Internal
     private func setupImagePicker() {
-        
+        imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .savedPhotosAlbum
+        imagePicker.allowsEditing = false
     }
     
     private func setupScrollAndStackView() {
+        scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
         
+        stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 10.0
+        stackView.isUserInteractionEnabled = false
+        scrollView.addSubview(stackView)
     }
     
     private func setupAttachmentButton() {
@@ -165,6 +173,17 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         }
         attachmentButton.addAction(albumButton)
         
+    }
+    
+    private func setupTextField() {
+        textField = UITextField()
+        textField.delegate = self
+        textField.layer.cornerRadius = 10.0
+        textField.layer.borderWidth = 0.5
+        textField.placeholder = "Type a message";
+        textField.backgroundColor = .white
+        textField.returnKeyType = .send
+        view.addSubview(textField)
     }
     
     private func sendText(text: String?) {
@@ -204,16 +223,8 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-//        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-//        let imageView = UIImageView(frame: .zero)
-//        imageView.image = image
-//        imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 70)
-//        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-//        //presenter.sendMessage(image: image)
-//        stackView.addArrangedSubview(imageView)
-//        self.stackView.layoutIfNeeded()
-//        scrollView.contentSize = stackView.frame.size
-        self.presenter.sendMessage(text: "Envio una imagen")
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        presenter.sendMessage(image: image)
         dismiss(animated:true, completion: nil)
     }
     

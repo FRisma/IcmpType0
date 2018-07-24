@@ -13,4 +13,5 @@ protocol ITLandingMainViewControllerProtocol {
     func updateConversations(chats: Chats)
     func goToConversation()
     func createNewConversation()
+    func showError(info: String?)
 }

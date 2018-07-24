@@ -19,9 +19,11 @@ class ITLandingMainViewPresenter: ITLandingMainViewPresenterProtocol {
     }
     
     func fetchConversations() {
-        self.service.getChats { (chats) in
-            if !chats.conversations.isEmpty {
+        self.service.getChats { (chats, error) in
+            if let chats = chats, !chats.conversations.isEmpty && error == nil {
                 self.viewDelegate?.updateConversations(chats: chats)
+            } else {
+                self.viewDelegate?.showError(info: "Could not load your conversations")
             }
         }
     }

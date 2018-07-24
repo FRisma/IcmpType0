@@ -24,7 +24,7 @@ class ITConversationPresenter: ITConversationPresenterProtocol {
     }
     
     func sendMessage(text: String) {
-        let aMessage = Message(withString: text.data(using: String.Encoding.utf8)!, andType: .text)
+        let aMessage = Message(type: .text, rawData: text.data(using: String.Encoding.utf8)!, fakeDate: 123456, sender: "Franco Risma")
         self.service.send(message: aMessage) { (success) in
             if success {
                 self.viewDelegate?.messageSent(message: text)
@@ -48,7 +48,17 @@ class ITConversationPresenter: ITConversationPresenterProtocol {
     }
     
     func sendMessage(image: UIImage) {
-        
+        let aMessage = Message(type: .image, rawData: UIImagePNGRepresentation(image)!, fakeDate: 123456, sender: "Franco Risma")
+        self.service.send(message: aMessage) { (success) in
+            if success {
+                self.viewDelegate?.messageSent(message: image)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                    self.viewDelegate?.messageReceived(message: image)
+                })
+            } else {
+                self.viewDelegate?.showError(info: "Message could not be sent, please try again")
+            }
+        }
     }
     
     func messageDetails() {

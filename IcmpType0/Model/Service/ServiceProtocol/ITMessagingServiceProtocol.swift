@@ -12,5 +12,5 @@ protocol ITMessagingServiceProtocol {
     
     func send(message: Message, onCompletion: @escaping(Bool) -> Void)
     func get(messages: [Message], onCompletion: @escaping(Bool) -> Void)
-    func getChats(onCompletion: @escaping(Chats) -> Void)
+    func getChats(onCompletion: @escaping(Chats?, NSError?) -> Void)
 }

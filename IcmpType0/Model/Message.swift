@@ -9,39 +9,62 @@
 import Foundation
 import UIKit
 
-enum MessageType :String{
+enum MessageType: String, Codable{
     case text
     case image
+    
+    private enum CodingKeys: String, CodingKey {
+        case text
+        case image
+    }
 }
 
-class Message {
-    var type: MessageType
+struct Messages: Decodable {
+    let conversations: [Message]
+    
+    enum CodingKeys : String, CodingKey {
+        case conversations = "messages"
+    }
+}
+
+struct Message: Decodable {
+    let type: MessageType
     var rawData: Data
-    var date: Calendar
-    var sender: String
+    //let date: Calendar
+    let fakeDate: Int
+    let sender: String
     
-    init(withString: Data, andType: MessageType ) {
-        type = andType
-        rawData = withString
-        date = Calendar.current
-        sender = "Franco Risma"
+    enum CodingKeys : String, CodingKey {
+        case fakeDate = "timestamp"
+        case sender = "name"
+        case rawData = "message"
+        case type
     }
     
-    init(withString: Data, type: MessageType, date: Calendar, andSender: String) {
-        rawData = withString
-        self.type = type
-        self.date = date
-        sender = andSender
-    }
+//    init(withString: Data, andType: MessageType ) {
+//        type = andType
+//        rawData = withString
+//        date = Calendar.current
+//        fakeDate = 12345
+//        sender = "Franco Risma"
+//    }
+//
+//    init(withString: Data, type: MessageType, date: Calendar, andSender: String) {
+//        rawData = withString
+//        self.type = type
+//        self.date = date
+//        fakeDate = 12345
+//        sender = andSender
+//    }
     
-    func set(data: Any, forType type: MessageType) {
-        switch type {
-        case .text:
-            let text = data as? String ?? ""
-            rawData = text.data(using: .utf8)!
-        case .image:
-            print("Imagen")
-            //rawData = UIImagePNGRepresentation(data)
-        }
-    }
+//    func set(data: Any, forType type: MessageType) {
+//        switch type {
+//        case .text:
+//            let text = data as? String ?? ""
+//            rawData = text.data(using: .utf8)!
+//        case .image:
+//            print("Imagen")
+//            //rawData = UIImagePNGRepresentation(data)
+//        }
+//    }
 }

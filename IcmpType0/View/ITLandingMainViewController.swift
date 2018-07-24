@@ -75,6 +75,12 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
         self.navigationController?.pushViewController(newConvVC, animated: true)
     }
     
+    func showError(info: String?) {
+        let alert = UIAlertController(title: "Error", message: info, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.navigationController?.present(alert, animated: true, completion: nil)
+    }
+    
     // MARK: UITableViewDelegate & UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let currentChats = peopleList?.count {

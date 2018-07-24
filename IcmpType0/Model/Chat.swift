@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Chats: Codable {
+struct Chats: Decodable {
     let conversations: [Chat]
     
     enum CodingKeys : String, CodingKey {
@@ -16,7 +16,7 @@ struct Chats: Codable {
     }
 }
 
-struct Chat: Codable {
+struct Chat: Decodable {
     let lastMessage: String!
     let date: Int
     let member: String
