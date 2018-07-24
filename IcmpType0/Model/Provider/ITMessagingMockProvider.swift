@@ -49,20 +49,44 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
                             {
                                 "lastMessage": "Would you like to learn Swift?",
                                 "time": 1234566,
-                                "member": "1",
+                                "member": "2",
                                 "memberAlias": "Rocio Gatica"
                             },
                             {
                                 "lastMessage": "Te amo papá",
                                 "time": 1234566,
-                                "member": "1",
+                                "member": "3",
                                 "memberAlias": "Emilia Risma"
                             },
                             {
                                 "lastMessage": "Abrigate que está frío",
                                 "time": 1234566,
-                                "member": "1",
+                                "member": "4",
                                 "memberAlias": "Marina Flores"
+                            },
+                            {
+                                "lastMessage": "Ya compre las pelotas para el metegol",
+                                "time": 1827364872,
+                                "member": "5",
+                                "memberAlias": "Elias Medina"
+                            },
+                            {
+                                "lastMessage": "Feliz día",
+                                "time": 1234566,
+                                "member": "6",
+                                "memberAlias": "Juan Rodriguez"
+                            },
+                            {
+                                "lastMessage": "7 - 0 le ganamos, nos deben una coca",
+                                "time": 1234566,
+                                "member": "7",
+                                "memberAlias": "Carlos Albornoz"
+                            },
+                            {
+                                "lastMessage": "Sumate y multiplica 2x1",
+                                "time": 1234566,
+                                "member": "8",
+                                "memberAlias": "Movistar"
                             }
                         ]
                     }
@@ -72,14 +96,25 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
                     {
                         "messages": [
                                 {
+                                    "id": "123"
                                     "message": "Hello",
-                                    "name": "uid1",
+                                    "name": "Franco Risma",
+                                    "member": "1",
                                     "timestamp": 1234566
                                 },
                                 {
+                                    "id": "124"
                                     "message": "How are you?",
-                                    "name": "uid2",
-                                    "timestamp": 35435553535
+                                    "name": "Bot",
+                                    "member": "999",
+                                    "timestamp": 354355535
+                                },
+                                {
+                                    "id": "125"
+                                    "message": "Fine thanks",
+                                    "name": "Franco Risma",
+                                    "member": "1",
+                                    "timestamp": 123456342
                                 }
                         ]
                     }

@@ -15,5 +15,5 @@ protocol ITConversationPresenterProtocol {
     func cameraButtonTapped()
     func sendMessage(text: String)
     func sendMessage(image: UIImage)
-    func messageDetails()
+    func messageDetails(messageId: String)
 }

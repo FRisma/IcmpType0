@@ -18,6 +18,12 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
     // This will hold the people you are writing to
     var peopleList: [Chat]? {
         didSet {
+            peopleListFiltered = peopleList
+        }
+    }
+    
+    var peopleListFiltered: [Chat]?{
+        didSet {
             self.tableView.reloadData()
         }
     }
@@ -38,6 +44,7 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
         super.viewDidLoad()
         
         self.view.backgroundColor = .white
+        self.definesPresentationContext = true
         
         self.setupNavBar()
         self.setupSearchController()
@@ -83,7 +90,7 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
     
     // MARK: UITableViewDelegate & UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let currentChats = peopleList?.count {
+        if let currentChats = peopleListFiltered?.count {
             return currentChats
         } else {
             return 0
@@ -93,7 +100,7 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "People") as! ITLandingMainTableViewCell
         
-        if let aConv = peopleList?[indexPath.row] {
+        if let aConv = peopleListFiltered?[indexPath.row] {
             cell.profileName.text = aConv.memberName
             cell.messageLabel.text = aConv.lastMessage
             cell.dateLabel.text = String(aConv.date)
@@ -109,7 +116,20 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
     
     // MARK: UISearchResultsUpdating
     func updateSearchResults(for searchController: UISearchController) {
-        
+        guard let searchText = searchController.searchBar.text else {
+            return
+        }
+        if searchText.count > 0 {
+            peopleListFiltered?.removeAll()
+            let array = peopleList?.filter {
+                return $0.memberName.lowercased().contains(searchText.lowercased())
+            }
+            peopleListFiltered = array
+        } else { //Reset to the original state
+            if searchController.isActive {
+                peopleListFiltered = peopleList
+            }
+        }
     }
     
     // MARK: Internal

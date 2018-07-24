@@ -46,7 +46,8 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         self.setupTextField()
         
         scrollView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalTo(textField.snp.top).offset(-3)
         }
         stackView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -54,20 +55,9 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         }
         textField.snp.makeConstraints { (make) in
             make.left.right.equalTo(view).inset(10)
-            make.bottom.equalTo(view)
+            make.bottom.equalTo(view).offset(-2)
             make.height.equalTo(30)
         }
-        
-        self.view.bringSubview(toFront: textField)
-        
-//        for i in 1...150 {
-//            self.addMessage(text: "Line \(i)")
-//        }
-//        for _ in 1 ..< 100 {
-//            let vw = UIButton(type: .system)
-//            vw.setTitle("Button", for: .normal)
-//            stackView.addArrangedSubview(vw)
-//        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -91,23 +81,31 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     }
     
     func messageSent(message: UIImage) {
+//        imageView.frame = CGRect(x: 0, y: 0, width: 10, height: 40)
+//        imageView.widthAnchor.constraint(equalToConstant: 10).isActive = true
+//        imageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        //imageView.clipsToBounds = true
         let imageView = UIImageView(frame: .zero)
         imageView.image = message
-        imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 70)
-        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        imageView.isUserInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(messageTapped(_:)))
+        tapGestureRecognizer.numberOfTapsRequired = 1;
+        tapGestureRecognizer.numberOfTouchesRequired = 1
         stackView.addArrangedSubview(imageView)
-        self.stackView.layoutIfNeeded()
         scrollView.contentSize = stackView.frame.size
     }
     
     func messageReceived(message: UIImage) {
-        let imageView = UIImageView(frame: .zero)
-        imageView.image = message
-        imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 70)
-        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        stackView.addArrangedSubview(imageView)
-        self.stackView.layoutIfNeeded()
-        scrollView.contentSize = stackView.frame.size
+//        let imageView = UIImageView(frame: .zero)
+//        imageView.image = message
+////        imageView.frame = CGRect(x: 0, y: 0, width: 10, height: 40)
+////        imageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.clipsToBounds = true
+//        imageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+//        stackView.addArrangedSubview(imageView)
+//        self.stackView.layoutIfNeeded()
+//        scrollView.contentSize = stackView.frame.size
     }
     
     func showError(info: String?) {
@@ -120,8 +118,9 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         self.navigationController?.present(attachmentButton, animated: true, completion: nil)
     }
     
-    func goToDetails() {
-        
+    func goToDetails(forMessage message: Message) {
+        let textVC = ITTextMessageDetailsViewController(withMessage: message)
+        self.navigationController?.pushViewController(textVC, animated: true)
     }
     
     // MARK: UITextFieldDelegate
@@ -143,13 +142,15 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     private func setupScrollAndStackView() {
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.isUserInteractionEnabled = true
         view.addSubview(scrollView)
         
         stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10.0
-        stackView.isUserInteractionEnabled = false
+        stackView.isUserInteractionEnabled = true
+        stackView.distribution = .fillProportionally
         scrollView.addSubview(stackView)
     }
     
@@ -213,6 +214,7 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(messageTapped(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1;
         tapGestureRecognizer.numberOfTouchesRequired = 1
+        message.addGestureRecognizer(tapGestureRecognizer)
         stackView.addArrangedSubview(message)
     }
     
@@ -224,8 +226,8 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        presenter.sendMessage(image: image)
         dismiss(animated:true, completion: nil)
+        presenter.sendMessage(image: image)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -245,7 +247,11 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     }
     
     @objc func messageTapped(_ sender: UITapGestureRecognizer) {
-        self.presenter.messageDetails()
+        if let viewLabel = sender.view as? UILabel {
+            self.presenter.messageDetails(messageId: "ID:4 bytes20519871")
+        } else if let viewImage = sender.view as? UIImageView {
+            self.presenter.messageDetails(messageId: "test")
+        }
     }
     
 }

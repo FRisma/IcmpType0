@@ -24,7 +24,7 @@ class ITMessagingService: ITMessagingServiceProtocol {
     
     func send(message: Message, onCompletion: @escaping (Bool) -> Void) {
         let wasSuccessful = self.randomBool()
-        onCompletion(wasSuccessful)
+        onCompletion(true)
     }
     
     func get(messages: [Message], onCompletion: @escaping (Bool) -> Void) {

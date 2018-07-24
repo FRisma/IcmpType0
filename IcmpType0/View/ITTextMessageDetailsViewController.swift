@@ -22,7 +22,7 @@ class ITTextMessageDetailsViewController: UIViewController {
     init(withMessage message: Message) {
         super.init(nibName: nil, bundle: nil)
         textMessageLabel.text = String(data: message.rawData, encoding: String.Encoding.utf8) as! String
-        senderLabel.text = message.sender
+        senderLabel.text = message.userName
         dateLabel.text = "02/05/1987"
         senderTitleLabel.text = "Remitente"
         dateTitleLabel.text = "Fecha"
@@ -35,6 +35,15 @@ class ITTextMessageDetailsViewController: UIViewController {
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        
+        senderTitleLabel.textAlignment = .left
+        senderLabel.textAlignment = .left
+        dateTitleLabel.textAlignment = .left
+        dateLabel.textAlignment = .left
+        
+        textMessageLabel.font = .systemFont(ofSize: 18, weight: .heavy)
+        textMessageLabel.textAlignment = .center
         
         view.addSubview(senderTitleLabel)
         view.addSubview(senderLabel)
@@ -48,7 +57,11 @@ class ITTextMessageDetailsViewController: UIViewController {
     //MARK: Internal
     private func applyConstraints() {
         senderTitleLabel.snp.makeConstraints { (make) in
-            make.top.left.equalToSuperview()
+            if #available(iOS 11, *) {
+                make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
+            } else {
+                make.top.equalTo(self.view)
+            }
             make.right.equalTo(view).multipliedBy(0.5)
         }
         
