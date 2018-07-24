@@ -7,7 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ITConversationPresenterProtocol {
     
+    func setViewDelegate(delegate: ITConversationViewControllerProtocol)
+    func cameraButtonTapped()
+    func sendMessage(text: String)
+    func sendMessage(image: UIImage)
+    func messageDetails()
 }

@@ -10,7 +10,7 @@ import Foundation
 
 protocol ITLandingMainViewControllerProtocol {
     
-    func updateConversations()
+    func updateConversations(chats: Chats)
     func goToConversation()
     func createNewConversation()
 }

@@ -11,6 +11,7 @@ import Foundation
 class ITLandingMainViewPresenter: ITLandingMainViewPresenterProtocol {
 
     private var viewDelegate: ITLandingMainViewControllerProtocol?
+    private var service = ITMessagingService.shared
     
     // MARK: ITLandingMainViewPresenterProtocol
     func setViewDelegate(delegate: ITLandingMainViewControllerProtocol) {
@@ -18,15 +19,19 @@ class ITLandingMainViewPresenter: ITLandingMainViewPresenterProtocol {
     }
     
     func fetchConversations() {
-        viewDelegate?.updateConversations()
+        self.service.getChats { (chats) in
+            if !chats.conversations.isEmpty {
+                self.viewDelegate?.updateConversations(chats: chats)
+            }
+        }
     }
     
     func conversationTapped() {
-    
+        self.viewDelegate?.goToConversation()
     }
     
     func composeButtonTapped() {
-        
+        self.viewDelegate?.createNewConversation()
     }
     
 }

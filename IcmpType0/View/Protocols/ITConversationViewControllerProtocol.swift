@@ -10,4 +10,8 @@ import Foundation
 
 protocol ITConversationViewControllerProtocol {
 
+    func messageSent(message: String)
+    func messageReceived(message: String)
+    func showError(info: String?)
+    func goToDetails()
 }

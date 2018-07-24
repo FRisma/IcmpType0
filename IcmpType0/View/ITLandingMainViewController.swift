@@ -16,7 +16,7 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
     private let presenter: ITLandingMainViewPresenterProtocol!
     
     // This will hold the people you are writing to
-    var peopleList: [Any]? {
+    var peopleList: [Chat]? {
         didSet {
             self.tableView.reloadData()
         }
@@ -54,23 +54,25 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
     }
     
     // MARK: ITLandingMainViewControllerProtocol
-    func updateConversations() {
-        peopleList = [["name" : "Roberto"],
-                      ["name" : "Roberto2"],
-                      ["name" : "Roberto3"],
-                      ["name" : "Roberto4"],
-                      ["name" : "Roberto5"],
-                      ["name" : "Roberto6"],
-                      ["name" : "Roberto7"]
-        ]
+    func updateConversations(chats: Chats) {
+        peopleList = chats.conversations
     }
     
     func goToConversation() {
-        
+        let backItem = UIBarButtonItem()
+        backItem.title = "Chats"
+        navigationItem.backBarButtonItem = backItem
+        let convVC = ITConversationViewController(withPresenter: ITConversationPresenter())
+        convVC.title = "Franco Risma"
+        self.navigationController?.pushViewController(convVC, animated: true)
     }
     
     func createNewConversation() {
-        
+        let backItem = UIBarButtonItem()
+        backItem.title = "Chats"
+        navigationItem.backBarButtonItem = backItem
+        let newConvVC = ITConversationViewController(withPresenter: ITConversationPresenter())
+        self.navigationController?.pushViewController(newConvVC, animated: true)
     }
     
     // MARK: UITableViewDelegate & UITableViewDataSource
@@ -84,8 +86,19 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "People") as! ITLandingMainTableViewCell
-        cell.profileName.text = "Franco"
+        
+        if let aConv = peopleList?[indexPath.row] {
+            cell.profileName.text = aConv.memberName
+            cell.messageLabel.text = aConv.lastMessage
+            cell.dateLabel.text = String(aConv.date)
+            let picture = UIImage(named: "profileFranco")
+            cell.profileImage.image = picture
+        }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
     
     // MARK: UISearchResultsUpdating
@@ -95,10 +108,10 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
     
     // MARK: Internal
     private func setupNavBar() {
-        self.navigationController?.title = "Mensajes"
+        self.navigationItem.title = "Mensajes"
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        //let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: presenter, action: composeButtonTapped)
-        //navigationItem.leftBarButtonItem = button
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(composeButtonTapped(_:)))
+        navigationItem.rightBarButtonItem = button
     }
     
     private func setupSearchController() {
@@ -129,5 +142,9 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
             }
             make.left.right.bottom.equalTo(self.view)
         }
+    }
+    
+    @objc func composeButtonTapped(_ sender: Any) {
+        presenter.composeButtonTapped()
     }
 }
