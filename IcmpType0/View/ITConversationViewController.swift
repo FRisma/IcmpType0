@@ -22,6 +22,8 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     private var lastBottomConstraint: Constraint?
     private var lastView : UIView?
     
+    private var messageCount = 0 // Acumultator of sent and received messages - Used for matching presenter's messages
+    
     // MARK: Initialization
     init(withPresenter pres: ITConversationPresenterProtocol) {
         presenter = pres
@@ -90,7 +92,12 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         self.navigationController?.present(alert, animated: true, completion: nil)
     }
     
-    func goToDetails(forMessage message: Message) {
+    func showImageDetails(forMessage message: Message) {
+        let textVC = ITImageDetailsViewController(withMessage: message)
+        self.navigationController?.pushViewController(textVC, animated: true)
+    }
+    
+    func showTextDetails(forMessage message: Message) {
         let textVC = ITTextMessageDetailsViewController(withMessage: message)
         self.navigationController?.pushViewController(textVC, animated: true)
     }
@@ -219,6 +226,10 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
             }
         }
         lastView = view
+        
+        // Add an id to the view, so then, we can find that id in the presenter's array
+        view.tag = messageCount
+        messageCount += 1
     
         // Animate new added view
         lastView!.frame.size.width -= 30
@@ -239,10 +250,8 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     }
     
     @objc func messageTapped(_ sender: UITapGestureRecognizer) {
-        if let viewLabel = sender.view as? UILabel {
-            self.presenter.messageDetails(messageId: "ID:4 bytes20519871")
-        } else if let viewImage = sender.view as? UIImageView {
-            self.presenter.messageDetails(messageId: "test")
+        if let viewTag = sender.view?.tag {
+            self.presenter.messageDetails(messageId: viewTag)
         }
     }
     

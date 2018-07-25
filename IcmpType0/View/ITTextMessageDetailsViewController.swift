@@ -13,11 +13,12 @@ import SnapKit
 class ITTextMessageDetailsViewController: UIViewController {
     
     var aMessage: Message!
-    private var textMessageLabel = UILabel()
-    private var senderTitleLabel = UILabel()
-    private var senderLabel = UILabel()
-    private var dateTitleLabel = UILabel()
-    private var dateLabel = UILabel()
+    private let textMessageLabel = UILabel()
+    private let senderTitleLabel = UILabel()
+    private let senderLabel = UILabel()
+    private let dateTitleLabel = UILabel()
+    private let dateLabel = UILabel()
+    private var detecetdURLs = [URL]()
     
     init(withMessage message: Message) {
         super.init(nibName: nil, bundle: nil)
@@ -52,6 +53,30 @@ class ITTextMessageDetailsViewController: UIViewController {
         view.addSubview(textMessageLabel)
         
         self.applyConstraints()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        var newFrame = senderTitleLabel.frame
+        newFrame.origin.x = 0
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: {
+            self.senderTitleLabel.frame = newFrame
+        }, completion: nil)
+        
+        var newFrame2 = senderLabel.frame
+        newFrame2.origin.x = 113
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: {
+            self.senderLabel.frame = newFrame2
+        }, completion: nil)
+//
+//        detecetdURLs = ITStringAnalyzer.urlArrayIn(string: textMessageLabel.text ?? "")
+//        if !detecetdURLs.isEmpty {
+//            let browserVC = ITWebBrowser(withURL: detecetdURLs.first!)
+//            self.navigationController?.pushViewController(browserVC, animated: true)
+//            //self.navigationController?.present(browserVC, animated: true, completion: nil)
+//        }
     }
     
     //MARK: Internal

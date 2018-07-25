@@ -28,9 +28,11 @@
 		CE55140E2106632C00B1A6C4 /* ITMessagingProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE55140D2106632C00B1A6C4 /* ITMessagingProviderProtocol.swift */; };
 		CE5514102106633B00B1A6C4 /* ITMessagingServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE55140F2106633B00B1A6C4 /* ITMessagingServiceProtocol.swift */; };
 		CE5514122106652A00B1A6C4 /* ITMessagingMockProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5514112106652A00B1A6C4 /* ITMessagingMockProvider.swift */; };
-		CE5514142106901500B1A6C4 /* ITWebBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5514132106901500B1A6C4 /* ITWebBrowser.swift */; };
+		CE5514142106901500B1A6C4 /* ITWebBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5514132106901500B1A6C4 /* ITWebBrowserViewController.swift */; };
 		CE5514162106946D00B1A6C4 /* ITTextMessageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5514152106946D00B1A6C4 /* ITTextMessageDetailsViewController.swift */; };
 		CE5514182106A56200B1A6C4 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5514172106A56200B1A6C4 /* Chat.swift */; };
+		CE86E1E02109211F004CC330 /* ITStringAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86E1DF2109211F004CC330 /* ITStringAnalyzer.swift */; };
+		CE86E1E521092F5B004CC330 /* ITImageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86E1E421092F5B004CC330 /* ITImageDetailsViewController.swift */; };
 		CEC42B6D2105438300EBD862 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC42B6C2105438300EBD862 /* Message.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,9 +76,11 @@
 		CE55140D2106632C00B1A6C4 /* ITMessagingProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITMessagingProviderProtocol.swift; sourceTree = "<group>"; };
 		CE55140F2106633B00B1A6C4 /* ITMessagingServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITMessagingServiceProtocol.swift; sourceTree = "<group>"; };
 		CE5514112106652A00B1A6C4 /* ITMessagingMockProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITMessagingMockProvider.swift; sourceTree = "<group>"; };
-		CE5514132106901500B1A6C4 /* ITWebBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITWebBrowser.swift; sourceTree = "<group>"; };
+		CE5514132106901500B1A6C4 /* ITWebBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITWebBrowserViewController.swift; sourceTree = "<group>"; };
 		CE5514152106946D00B1A6C4 /* ITTextMessageDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITTextMessageDetailsViewController.swift; sourceTree = "<group>"; };
 		CE5514172106A56200B1A6C4 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		CE86E1DF2109211F004CC330 /* ITStringAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITStringAnalyzer.swift; sourceTree = "<group>"; };
+		CE86E1E421092F5B004CC330 /* ITImageDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITImageDetailsViewController.swift; sourceTree = "<group>"; };
 		CEC42B6C2105438300EBD862 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,9 +148,9 @@
 			isa = PBXGroup;
 			children = (
 				CEC42B6B2105437600EBD862 /* Model */,
-				CE2B08D62100E4DF004D7D0B /* Utils */,
 				CE2B08C32100E2F6004D7D0B /* View */,
 				CE2B08C22100E2EC004D7D0B /* Presenter */,
+				CE2B08D62100E4DF004D7D0B /* Utils */,
 				CE2B08C02100E2D0004D7D0B /* Supporting Files */,
 			);
 			path = IcmpType0;
@@ -191,7 +195,8 @@
 				CE2B08C62100E346004D7D0B /* ITConversationViewController.swift */,
 				CE2B08D921012AA0004D7D0B /* ITLandingMainTableViewCell.swift */,
 				CE5514152106946D00B1A6C4 /* ITTextMessageDetailsViewController.swift */,
-				CE5514132106901500B1A6C4 /* ITWebBrowser.swift */,
+				CE5514132106901500B1A6C4 /* ITWebBrowserViewController.swift */,
+				CE86E1E421092F5B004CC330 /* ITImageDetailsViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -218,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				CE2B08D72100E4F3004D7D0B /* ITConstants.swift */,
+				CE86E1DF2109211F004CC330 /* ITStringAnalyzer.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -323,6 +329,7 @@
 				TargetAttributes = {
 					CE2B089C2100E2A9004D7D0B = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 					};
 					CE2B08B02100E2AC004D7D0B = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -479,6 +486,8 @@
 				CE5514122106652A00B1A6C4 /* ITMessagingMockProvider.swift in Sources */,
 				CE2B08C72100E346004D7D0B /* ITConversationViewController.swift in Sources */,
 				CE5514182106A56200B1A6C4 /* Chat.swift in Sources */,
+				CE86E1E02109211F004CC330 /* ITStringAnalyzer.swift in Sources */,
+				CE86E1E521092F5B004CC330 /* ITImageDetailsViewController.swift in Sources */,
 				CE5514162106946D00B1A6C4 /* ITTextMessageDetailsViewController.swift in Sources */,
 				CE5514102106633B00B1A6C4 /* ITMessagingServiceProtocol.swift in Sources */,
 				CE5514062106629300B1A6C4 /* ITMessagingService.swift in Sources */,
@@ -494,7 +503,7 @@
 				CEC42B6D2105438300EBD862 /* Message.swift in Sources */,
 				CE2B08CB2100E37D004D7D0B /* ITConversationPresenter.swift in Sources */,
 				CE2B08DA21012AA0004D7D0B /* ITLandingMainTableViewCell.swift in Sources */,
-				CE5514142106901500B1A6C4 /* ITWebBrowser.swift in Sources */,
+				CE5514142106901500B1A6C4 /* ITWebBrowserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +664,7 @@
 			baseConfigurationReference = 9F9C1AEFD3700C2458CAF5E9 /* Pods-IcmpType0.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X3NTASB9PV;
 				INFOPLIST_FILE = "$(SRCROOT)/IcmpType0/Supporting Files/Info.plist";
@@ -665,6 +675,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.frisma.IcmpType0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -675,6 +686,7 @@
 			baseConfigurationReference = 32A8CB93C37C23C514F8A88E /* Pods-IcmpType0.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X3NTASB9PV;
 				INFOPLIST_FILE = "$(SRCROOT)/IcmpType0/Supporting Files/Info.plist";

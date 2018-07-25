@@ -18,17 +18,4 @@ class Utils {
             alpha: CGFloat(1.0)
         )
     }
-    
-    public class func urlArrayIn(string input: String) -> [String] {
-        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        let matches = detector.matches(in: input, options: [], range: NSRange(location: 0, length: input.utf16.count))
-        
-        var results: Array = [String]()
-        for match in matches {
-            guard let range = Range(match.range, in: input) else { continue }
-            let url = input[range]
-            results.append(String(url))
-        }
-        return results
-    }
 }

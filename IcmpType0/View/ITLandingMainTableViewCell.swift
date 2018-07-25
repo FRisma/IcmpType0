@@ -74,6 +74,7 @@ class ITLandingMainTableViewCell: UITableViewCell {
         messageLabel.snp.makeConstraints { (make) in
             make.top.equalTo(profileName.snp.bottom).offset(15)
             make.left.equalTo(profileName)
+            make.right.equalTo(containerView).offset(-2)
         }
         
         dateLabel.snp.makeConstraints { (make) in

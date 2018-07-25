@@ -28,7 +28,6 @@ struct Messages: Decodable {
 }
 
 struct Message: Decodable {
-    let id: String
     let type: MessageType
     var rawData: Data
     //let date: Calendar
@@ -37,7 +36,6 @@ struct Message: Decodable {
     let userName: String
     
     enum CodingKeys : String, CodingKey {
-        case id
         case date = "timestamp"
         case userName = "name"
         case userId = "member"

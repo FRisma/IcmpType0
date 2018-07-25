@@ -104,7 +104,8 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
             cell.profileName.text = aConv.memberName
             cell.messageLabel.text = aConv.lastMessage
             cell.dateLabel.text = String(aConv.date)
-            let picture = UIImage(named: "profileFranco")
+            let profPictureName = String("profile"+aConv.memberName.replacingOccurrences(of: " ", with: ""))
+            let picture = UIImage(named: profPictureName)
             cell.profileImage.image = picture
         }
         return cell

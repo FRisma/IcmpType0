@@ -1,5 +1,5 @@
 //
-//  ITWebBrowser.swift
+//  ITWebBrowserViewController.swift
 //  IcmpType0
 //
 //  Created by Franco Risma on 23/07/2018.
@@ -10,7 +10,7 @@ import Foundation
 import WebKit
 import SnapKit
 
-class ITWebBrowser: UIViewController, WKNavigationDelegate {
+class ITWebBrowserViewController: UIViewController, WKNavigationDelegate {
     
     private var webView: WKWebView!
     private var url: URL

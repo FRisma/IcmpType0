@@ -16,5 +16,6 @@ protocol ITConversationViewControllerProtocol {
     func messageSent(message: UIImage)
     func messageReceived(message: UIImage)
     func showError(info: String?)
-    func goToDetails(forMessage message: Message)
+    func showImageDetails(forMessage message: Message)
+    func showTextDetails(forMessage message: Message)
 }

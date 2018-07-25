@@ -41,10 +41,10 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
                     {
                         "chat": [
                             {
-                                "lastMessage": "Hola, que haces?",
-                                "time": 12345677,
-                                "member": "1",
-                                "memberAlias": "Franco Risma"
+                                "lastMessage": "Para un argentino no hay nada mejor que otro argentino",
+                                "time": 1234566,
+                                "member": "8",
+                                "memberAlias": "Pedro Risma"
                             },
                             {
                                 "lastMessage": "Would you like to learn Swift?",
@@ -74,7 +74,7 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
                                 "lastMessage": "Feliz día",
                                 "time": 1234566,
                                 "member": "6",
-                                "memberAlias": "Juan Rodriguez"
+                                "memberAlias": "Juanma Rodriguez"
                             },
                             {
                                 "lastMessage": "7 - 0 le ganamos, nos deben una coca",
@@ -83,11 +83,12 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
                                 "memberAlias": "Carlos Albornoz"
                             },
                             {
-                                "lastMessage": "Sumate y multiplica 2x1",
-                                "time": 1234566,
-                                "member": "8",
-                                "memberAlias": "Movistar"
+                                "lastMessage": "Hola, que haces?",
+                                "time": 12345677,
+                                "member": "1",
+                                "memberAlias": "Franco Risma"
                             }
+                            
                         ]
                     }
                     """
@@ -96,21 +97,18 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
                     {
                         "messages": [
                                 {
-                                    "id": "123"
                                     "message": "Hello",
                                     "name": "Franco Risma",
                                     "member": "1",
                                     "timestamp": 1234566
                                 },
                                 {
-                                    "id": "124"
                                     "message": "How are you?",
                                     "name": "Bot",
                                     "member": "999",
                                     "timestamp": 354355535
                                 },
                                 {
-                                    "id": "125"
                                     "message": "Fine thanks",
                                     "name": "Franco Risma",
                                     "member": "1",
