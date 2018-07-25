@@ -13,11 +13,14 @@ import SnapKit
 class ITConversationViewController: UIViewController, ITConversationViewControllerProtocol, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private var presenter: ITConversationPresenterProtocol!
-    private var scrollView =  UIScrollView()
-    private var stackView = UIStackView()
-    private var textField: UITextField!
-    private var imagePicker: UIImagePickerController!
     private var attachmentButton: UIAlertController!
+    private let scrollView  =  UIScrollView(frame: .zero)
+    private let contentView = UIView(frame: .zero)
+    private let imagePicker = UIImagePickerController()
+    private let textField   = UITextField()
+    
+    private var lastBottomConstraint: Constraint?
+    private var lastView : UIView?
     
     // MARK: Initialization
     init(withPresenter pres: ITConversationPresenterProtocol) {
@@ -42,14 +45,14 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         
         self.setupAttachmentButton()
         self.setupImagePicker()
-        self.setupScrollAndStackView()
+        self.setupScrollView()
         self.setupTextField()
         
         scrollView.snp.makeConstraints { (make) in
             make.top.left.right.equalToSuperview()
             make.bottom.equalTo(textField.snp.top).offset(-3)
         }
-        stackView.snp.makeConstraints { (make) in
+        contentView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
             make.width.equalTo(view)
         }
@@ -60,62 +63,31 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        scrollView.contentSize = stackView.frame.size
-    }
-    
     // MARK: ITConversationViewControllerProtocol
     func messageSent(message: String) {
-        self.addMessage(text: message,
-                        color: Utils.UIColorFromRGB(rgbValue: 0x28602a),
-                        backgroundColor: Utils.UIColorFromRGB(rgbValue: 0xe2ffe3),
-                        alignment: .right)
+        let messageView = self.createTextMessageView(text: message, isSending: true)
+        self.addDynamicView(view: messageView, isSending: true)
     }
     
     func messageReceived(message: String) {
-        self.addMessage(text: message,
-                        color: Utils.UIColorFromRGB(rgbValue: 0x7a7a7a),
-                        backgroundColor: Utils.UIColorFromRGB(rgbValue: 0xc4c4c4),
-                        alignment: .left)
+        let messageView = self.createTextMessageView(text: message, isSending: false)
+        self.addDynamicView(view: messageView, isSending: false)
     }
     
     func messageSent(message: UIImage) {
-//        imageView.frame = CGRect(x: 0, y: 0, width: 10, height: 40)
-//        imageView.widthAnchor.constraint(equalToConstant: 10).isActive = true
-//        imageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        //imageView.clipsToBounds = true
-        let imageView = UIImageView(frame: .zero)
-        imageView.image = message
-        imageView.isUserInteractionEnabled = true
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(messageTapped(_:)))
-        tapGestureRecognizer.numberOfTapsRequired = 1;
-        tapGestureRecognizer.numberOfTouchesRequired = 1
-        stackView.addArrangedSubview(imageView)
-        scrollView.contentSize = stackView.frame.size
+        let messageView = self.createImageMessageView(image: message, isSending: true)
+        self.addDynamicView(view: messageView, isSending: true)
     }
     
     func messageReceived(message: UIImage) {
-//        let imageView = UIImageView(frame: .zero)
-//        imageView.image = message
-////        imageView.frame = CGRect(x: 0, y: 0, width: 10, height: 40)
-////        imageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.clipsToBounds = true
-//        imageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
-//        stackView.addArrangedSubview(imageView)
-//        self.stackView.layoutIfNeeded()
-//        scrollView.contentSize = stackView.frame.size
+        let messageView = self.createImageMessageView(image: message, isSending: false)
+        self.addDynamicView(view: messageView, isSending: false)
     }
     
     func showError(info: String?) {
         let alert = UIAlertController(title: "Error", message: info, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.navigationController?.present(alert, animated: true, completion: nil)
-    }
-    
-    @objc func showAttachmentOptions() {
-        self.navigationController?.present(attachmentButton, animated: true, completion: nil)
     }
     
     func goToDetails(forMessage message: Message) {
@@ -133,33 +105,27 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     
     // MARK: Internal
     private func setupImagePicker() {
-        imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .savedPhotosAlbum
         imagePicker.allowsEditing = false
     }
     
-    private func setupScrollAndStackView() {
-        scrollView = UIScrollView()
+    private func setupScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.isUserInteractionEnabled = true
-        view.addSubview(scrollView)
         
-        stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 10.0
-        stackView.isUserInteractionEnabled = true
-        stackView.distribution = .fillProportionally
-        scrollView.addSubview(stackView)
+        contentView.isUserInteractionEnabled = true
+        
+        scrollView.addSubview(contentView)
+        view.addSubview(scrollView)
     }
     
     private func setupAttachmentButton() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(showAttachmentOptions))
+        
         attachmentButton = UIAlertController(title: "Send attachment", message: "Select an option", preferredStyle: .actionSheet)
-        let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-            //No-op
-        }
+        
+        let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         attachmentButton.addAction(cancelActionButton)
         
         let cameraButton = UIAlertAction(title: "Camera", style: .default) { _ in
@@ -173,11 +139,9 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
             self.openPhotoLibrary()
         }
         attachmentButton.addAction(albumButton)
-        
     }
     
     private func setupTextField() {
-        textField = UITextField()
         textField.delegate = self
         textField.layer.cornerRadius = 10.0
         textField.layer.borderWidth = 0.5
@@ -197,25 +161,89 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         self.presenter.sendMessage(image: image)
     }
     
-    private func addMessage(text: String?, color: UIColor, backgroundColor: UIColor, alignment: NSTextAlignment) {
-        //let message = UIImageView(image: UIImage(named: "chat_bubble_sent"))
-        //imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+    private func createImageMessageView(image: UIImage?, isSending: Bool) -> UIView {
+        let imageView = UIImageView(frame: .zero)
+        imageView.image = image
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.frame = CGRect(x: 0, y: 0, width: 10, height: 40)
+        imageView.isUserInteractionEnabled = true
+        imageView.backgroundColor = isSending ? Utils.UIColorFromRGB(rgbValue: 0xe2ffe3) : Utils.UIColorFromRGB(rgbValue: 0xc4c4c4)
+        imageView.layer.cornerRadius = 8.0
+        imageView.clipsToBounds = true
+        imageView.addGestureRecognizer(self.singleTapGestureForDetails())
+        return imageView
+    }
+    
+    private func createTextMessageView(text: String?, isSending: Bool) -> UIView {
         let message = UILabel(frame: .zero)
         message.numberOfLines = 0
         message.lineBreakMode = .byWordWrapping
         message.text = text
         message.font = .systemFont(ofSize: 20, weight: .light)
-        message.textColor = color
-        message.textAlignment = alignment
-        message.backgroundColor = backgroundColor
-        message.translatesAutoresizingMaskIntoConstraints = false
+        message.textColor = isSending ? Utils.UIColorFromRGB(rgbValue: 0x28602a) : Utils.UIColorFromRGB(rgbValue: 0x7a7a7a)
+        message.textAlignment = .center
+        message.backgroundColor = isSending ? Utils.UIColorFromRGB(rgbValue: 0xe2ffe3) : Utils.UIColorFromRGB(rgbValue: 0xc4c4c4)
         message.isUserInteractionEnabled = true
-        message.layer.cornerRadius = 10.0
+        message.layer.masksToBounds = true;
+        message.layer.cornerRadius = 10.0;
+        message.addGestureRecognizer(self.singleTapGestureForDetails())
+        
+        return message
+    }
+    
+    private func addDynamicView(view: UIView, isSending: Bool) {
+        contentView.addSubview(view)
+        
+        lastBottomConstraint?.deactivate()
+        view.snp.makeConstraints { (make) in
+            if lastView != nil {
+                make.top.equalTo(lastView!.snp.bottom).offset(10)
+            } else {
+                make.top.equalTo(contentView)
+            }
+            
+            if isSending { // Sending messages are right sided
+                make.left.equalTo(contentView.snp.centerX).offset(2)
+                make.right.equalTo(contentView).offset(-5)
+            } else { // Receiving messages are left sided
+                make.left.equalTo(contentView).offset(5)
+                make.right.equalTo(contentView.snp.centerX).offset(-2)
+            }
+            
+            lastBottomConstraint = make.bottom.equalTo(scrollView).constraint
+            lastBottomConstraint?.activate()
+            
+            if view.isKind(of: UIImageView.self) {
+                make.size.equalTo(100)
+            }
+        }
+        lastView = view
+    
+        // Animate new added view
+        lastView!.frame.size.width -= 30
+        lastView!.frame.size.height -= 30
+        UIView.animate(withDuration: 0.6, animations: {
+            self.lastView!.frame.size.width += 30
+            self.lastView!.frame.size.height += 30
+        })
+    }
+    
+    
+    private func singleTapGestureForDetails() -> UITapGestureRecognizer {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(messageTapped(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1;
         tapGestureRecognizer.numberOfTouchesRequired = 1
-        message.addGestureRecognizer(tapGestureRecognizer)
-        stackView.addArrangedSubview(message)
+        
+        return tapGestureRecognizer
+    }
+    
+    @objc func messageTapped(_ sender: UITapGestureRecognizer) {
+        if let viewLabel = sender.view as? UILabel {
+            self.presenter.messageDetails(messageId: "ID:4 bytes20519871")
+        } else if let viewImage = sender.view as? UIImageView {
+            self.presenter.messageDetails(messageId: "test")
+        }
     }
     
     @objc func openPhotoLibrary() {
@@ -231,58 +259,23 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        /*if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0{
                 self.view.frame.origin.y -= keyboardSize.height
             }
-        }
+        }*/
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        /*if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0{
                 self.view.frame.origin.y += keyboardSize.height
             }
-        }
+        }*/
     }
     
-    @objc func messageTapped(_ sender: UITapGestureRecognizer) {
-        if let viewLabel = sender.view as? UILabel {
-            self.presenter.messageDetails(messageId: "ID:4 bytes20519871")
-        } else if let viewImage = sender.view as? UIImageView {
-            self.presenter.messageDetails(messageId: "test")
-        }
+    @objc func showAttachmentOptions() {
+        self.navigationController?.present(attachmentButton, animated: true, completion: nil)
     }
     
 }
-
-//    private func addMessage(/*text: String*/) {
-//        //let message = UIImageView(image: UIImage(named: "chat_bubble_sent"))
-//        let message = UILabel(frame: .zero)
-//        message.text = "Algun mensaje"
-//        message.translatesAutoresizingMaskIntoConstraints = false
-//        contentView.addSubview(message)
-//
-//        message.snp.makeConstraints { (make) in
-//            if latestmessage == nil { // First conversation message
-//                make.top.equalTo(self.contentView)
-//            } else { // Already talking
-//                make.top.equalTo(latestmessage!.snp.bottom).offset(20)
-//            }
-//            make.left.right.equalTo(contentView).inset(20)
-//            //make.width.equalTo(100)
-//            make.height.equalTo(50)
-//        }
-//        latestmessage = message
-//    }
-//
-
-//    func changeImage(_ name: String) {
-//        guard let image = UIImage(named: name) else { return }
-//        bubbleImageView.image = image
-//            .resizableImage(withCapInsets:
-//                UIEdgeInsetsMake(17, 21, 17, 21),
-//                            resizingMode: .stretch)
-//            .withRenderingMode(.alwaysTemplate)
-//    }
-//
