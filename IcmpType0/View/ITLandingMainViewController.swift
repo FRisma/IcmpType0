@@ -115,7 +115,8 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let convVC = ITConversationViewController(withPresenter: ITFakeConversationPresenter())
+        self.navigationController?.pushViewController(convVC, animated: true)
     }
     
     // MARK: UISearchResultsUpdating

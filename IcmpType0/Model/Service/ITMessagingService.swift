@@ -32,7 +32,7 @@ class ITMessagingService: ITMessagingServiceProtocol {
         }
     }
     
-    func get(messages: [Message], forConversation conversationId: String, onCompletion: @escaping ([Message]?,NSError?) -> Void) {
+    func getMessages(forConversation conversationId: String, onCompletion: @escaping ([Message]?,NSError?) -> Void) {
         provider.getMessages { (messages, error) in
             if error != nil {
                 return onCompletion(nil,error)

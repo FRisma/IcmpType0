@@ -26,6 +26,8 @@ class ITImageDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = .white 
+        
         scrollView.alwaysBounceVertical = true
         scrollView.alwaysBounceHorizontal = true
         view.addSubview(scrollView)

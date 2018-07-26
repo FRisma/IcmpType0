@@ -28,7 +28,6 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     init(withPresenter pres: ITConversationPresenterProtocol) {
         presenter = pres
         super.init(nibName: nil, bundle: nil)
-        presenter.setViewDelegate(delegate: self)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -63,6 +62,8 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
             make.bottom.equalTo(view).offset(-2)
             make.height.equalTo(30)
         }
+        
+        presenter.setViewDelegate(delegate: self)
     }
     
     // MARK: ITConversationViewControllerProtocol

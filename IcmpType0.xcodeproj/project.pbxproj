@@ -34,6 +34,7 @@
 		CE86E1E02109211F004CC330 /* ITStringAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86E1DF2109211F004CC330 /* ITStringAnalyzer.swift */; };
 		CE86E1E521092F5B004CC330 /* ITImageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86E1E421092F5B004CC330 /* ITImageDetailsViewController.swift */; };
 		CEA253BA210A219B008D12BA /* ITNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA253B9210A219B008D12BA /* ITNotifications.swift */; };
+		CEA253BC210A7F40008D12BA /* ITFakeConversationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA253BB210A7F40008D12BA /* ITFakeConversationPresenter.swift */; };
 		CEC42B6D2105438300EBD862 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC42B6C2105438300EBD862 /* Message.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		CE86E1DF2109211F004CC330 /* ITStringAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITStringAnalyzer.swift; sourceTree = "<group>"; };
 		CE86E1E421092F5B004CC330 /* ITImageDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITImageDetailsViewController.swift; sourceTree = "<group>"; };
 		CEA253B9210A219B008D12BA /* ITNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITNotifications.swift; sourceTree = "<group>"; };
+		CEA253BB210A7F40008D12BA /* ITFakeConversationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITFakeConversationPresenter.swift; sourceTree = "<group>"; };
 		CEC42B6C2105438300EBD862 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -185,6 +187,7 @@
 				CE2B08C92100E353004D7D0B /* Protocols */,
 				CE2B08CA2100E37D004D7D0B /* ITConversationPresenter.swift */,
 				CE2B08D02100E3BC004D7D0B /* ITLandingMainViewPresenter.swift */,
+				CEA253BB210A7F40008D12BA /* ITFakeConversationPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				CE86E1E02109211F004CC330 /* ITStringAnalyzer.swift in Sources */,
 				CE86E1E521092F5B004CC330 /* ITImageDetailsViewController.swift in Sources */,
 				CE5514162106946D00B1A6C4 /* ITTextMessageDetailsViewController.swift in Sources */,
+				CEA253BC210A7F40008D12BA /* ITFakeConversationPresenter.swift in Sources */,
 				CE5514102106633B00B1A6C4 /* ITMessagingServiceProtocol.swift in Sources */,
 				CE5514062106629300B1A6C4 /* ITMessagingService.swift in Sources */,
 				CE2B08C52100E32C004D7D0B /* ITLandingMainViewController.swift in Sources */,

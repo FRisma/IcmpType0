@@ -10,13 +10,7 @@ import Foundation
 import UIKit
 
 enum MessageType: String, Codable{
-    case text
-    case image
-    
-    private enum CodingKeys: String, CodingKey {
-        case text
-        case image
-    }
+    case text, image
 }
 
 struct Messages: Decodable {

@@ -27,7 +27,7 @@ class ITConversationPresenter: ITConversationPresenterProtocol {
     }
     
     func sendMessage(text: String) {
-        let sendingMessage = self.createSendingMessageFor(data: text.data(using: String.Encoding.utf8)!, type: .text)
+        let sendingMessage = self.createSendingMessageFor(data: text.data(using: .utf8)!, type: .text)
         
         self.service.send(message: sendingMessage) { [weak self] (error) in
             if error == nil {
@@ -73,7 +73,7 @@ class ITConversationPresenter: ITConversationPresenterProtocol {
                 self.messages.append(message)
                 switch message.type {
                 case .text:
-                    self.viewDelegate?.messageReceived(message: String(data: message.rawData, encoding: String.Encoding.utf8)!)
+                    self.viewDelegate?.messageReceived(message: String(data: message.rawData, encoding: .utf8)!)
                     break
                 case .image:
                     self.viewDelegate?.messageReceived(message: UIImage(data: message.rawData)!)
