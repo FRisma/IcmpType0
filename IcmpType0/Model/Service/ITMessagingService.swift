@@ -22,17 +22,23 @@ class ITMessagingService: ITMessagingServiceProtocol {
         self.provider = provider
     }
     
-    func send(message: Message, onCompletion: @escaping (Bool) -> Void) {
-        let wasSuccessful = self.randomBool()
-        onCompletion(true)
+    func send(message: Message, onCompletion: @escaping (NSError?) -> Void) {
+        provider.send(message: message) { (error) in
+            if error != nil {
+                // Generate an error
+                return onCompletion(error)
+            }
+            return onCompletion(nil)
+        }
     }
     
-    func get(messages: [Message], onCompletion: @escaping (Bool) -> Void) {
-        onCompletion(true)
-    }
-    
-    private func randomBool() -> Bool {
-        return arc4random_uniform(2) == 0
+    func get(messages: [Message], forConversation conversationId: String, onCompletion: @escaping ([Message]?,NSError?) -> Void) {
+        provider.getMessages { (messages, error) in
+            if error != nil {
+                return onCompletion(nil,error)
+            }
+            return onCompletion(messages?.conversations,nil)
+        }
     }
     
     func getChats(onCompletion: @escaping (Chats?, NSError?) -> Void) {

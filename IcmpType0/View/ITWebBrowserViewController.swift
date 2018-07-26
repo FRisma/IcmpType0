@@ -38,4 +38,17 @@ class ITWebBrowserViewController: UIViewController, WKNavigationDelegate {
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
     }
+    
+    // MARK: WKNavigationDelegate
+    internal func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        completionHandler(.performDefaultHandling,nil)
+    }
+    
+    internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        decisionHandler(.allow)
+    }
+    
+    internal func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        decisionHandler(.allow)
+    }
 }

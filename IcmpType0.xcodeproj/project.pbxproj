@@ -33,6 +33,7 @@
 		CE5514182106A56200B1A6C4 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5514172106A56200B1A6C4 /* Chat.swift */; };
 		CE86E1E02109211F004CC330 /* ITStringAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86E1DF2109211F004CC330 /* ITStringAnalyzer.swift */; };
 		CE86E1E521092F5B004CC330 /* ITImageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86E1E421092F5B004CC330 /* ITImageDetailsViewController.swift */; };
+		CEA253BA210A219B008D12BA /* ITNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA253B9210A219B008D12BA /* ITNotifications.swift */; };
 		CEC42B6D2105438300EBD862 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC42B6C2105438300EBD862 /* Message.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		CE5514172106A56200B1A6C4 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		CE86E1DF2109211F004CC330 /* ITStringAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITStringAnalyzer.swift; sourceTree = "<group>"; };
 		CE86E1E421092F5B004CC330 /* ITImageDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITImageDetailsViewController.swift; sourceTree = "<group>"; };
+		CEA253B9210A219B008D12BA /* ITNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITNotifications.swift; sourceTree = "<group>"; };
 		CEC42B6C2105438300EBD862 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,6 +226,7 @@
 			children = (
 				CE2B08D72100E4F3004D7D0B /* ITConstants.swift */,
 				CE86E1DF2109211F004CC330 /* ITStringAnalyzer.swift */,
+				CEA253B9210A219B008D12BA /* ITNotifications.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE5514122106652A00B1A6C4 /* ITMessagingMockProvider.swift in Sources */,
+				CEA253BA210A219B008D12BA /* ITNotifications.swift in Sources */,
 				CE2B08C72100E346004D7D0B /* ITConversationViewController.swift in Sources */,
 				CE5514182106A56200B1A6C4 /* Chat.swift in Sources */,
 				CE86E1E02109211F004CC330 /* ITStringAnalyzer.swift in Sources */,
@@ -677,7 +681,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -698,7 +702,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.frisma.IcmpType0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

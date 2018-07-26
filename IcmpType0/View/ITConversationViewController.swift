@@ -211,11 +211,11 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
             }
             
             if isSending { // Sending messages are right sided
-                make.left.equalTo(contentView.snp.centerX).offset(2)
+                make.left.equalTo(contentView.snp.centerX).offset(-30)
                 make.right.equalTo(contentView).offset(-5)
             } else { // Receiving messages are left sided
                 make.left.equalTo(contentView).offset(5)
-                make.right.equalTo(contentView.snp.centerX).offset(-2)
+                make.right.equalTo(contentView.snp.centerX).offset(30)
             }
             
             lastBottomConstraint = make.bottom.equalTo(scrollView).constraint
@@ -268,19 +268,18 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        /*if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }*/
+        var userInfo = notification.userInfo!
+        var keyboardFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        
+        var contentInset:UIEdgeInsets = self.scrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height
+        scrollView.contentInset = contentInset
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        /*if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0{
-                self.view.frame.origin.y += keyboardSize.height
-            }
-        }*/
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+        scrollView.contentInset = contentInset
     }
     
     @objc func showAttachmentOptions() {

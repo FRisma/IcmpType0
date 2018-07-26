@@ -17,6 +17,12 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
     
     func send(message: Message, onCompletion: (NSError?) -> Void) {
         onCompletion(nil)
+        
+        //Reply back by sending a new message and posting a notification
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            let newReplyMessage = self.createReceivingMessageFor(data: message.rawData, type: message.type)
+            NotificationCenter.default.post(name: .kITNotificationMessageReceived, object: ITMessagingMockProvider.shared, userInfo: ["data": newReplyMessage])
+        })
     }
     
     func getMessages(onCompletion: (Messages?, NSError?) -> Void) {
@@ -35,6 +41,15 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
             return
         }
         onCompletion(chats,nil)
+    }
+    
+    // MARK: Internal
+    
+    private func createReceivingMessageFor(data: Data, type: MessageType) -> Message {
+        let date = 02051987
+        let uid = "999"
+        
+        return Message(type: type, rawData: data, date: date, userId: uid, userName: "The Bot")
     }
     
     let mockChats = """

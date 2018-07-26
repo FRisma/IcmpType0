@@ -41,10 +41,10 @@ class ITTextMessageDetailsViewController: UIViewController, UITableViewDelegate,
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        senderTitleLabel.textAlignment = .left
-        senderLabel.textAlignment = .left
-        dateTitleLabel.textAlignment = .left
-        dateLabel.textAlignment = .left
+        senderTitleLabel.textAlignment  = .left
+        senderLabel.textAlignment       = .left
+        dateTitleLabel.textAlignment    = .left
+        dateLabel.textAlignment         = .left
         
         textMessageLabel.font = .systemFont(ofSize: 18, weight: .heavy)
         textMessageLabel.textAlignment = .center
@@ -62,6 +62,13 @@ class ITTextMessageDetailsViewController: UIViewController, UITableViewDelegate,
             linksTableView.delegate = self
             linksTableView.dataSource = self
             linksTableView.register(UITableViewCell.self, forCellReuseIdentifier: "links")
+            linksTableView.tableFooterView = UIView()
+            let headerView = UILabel()
+            headerView.textAlignment = .left
+            headerView.text = "Links encontrados"
+            headerView.numberOfLines = 1
+            headerView.backgroundColor = .red
+            linksTableView.tableHeaderView = headerView
             view.addSubview(linksTableView)
         }
         
@@ -96,7 +103,8 @@ class ITTextMessageDetailsViewController: UIViewController, UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "links")
-        cell?.textLabel?.text = detecetdURLs[indexPath.row].path
+        cell?.textLabel?.text = detecetdURLs[indexPath.row].absoluteString
+        cell?.textLabel?.textAlignment = .center
         return cell!
     }
     
@@ -105,7 +113,6 @@ class ITTextMessageDetailsViewController: UIViewController, UITableViewDelegate,
         if isIndexValid {
             let browserVC = ITWebBrowserViewController(withURL: detecetdURLs[indexPath.row])
             self.navigationController?.pushViewController(browserVC, animated: true)
-            //self.navigationController?.present(browserVC, animated: true, completion: nil)
         }
     }
     

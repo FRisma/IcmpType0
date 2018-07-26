@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 
 class Utils {
+    
+    //MARK: Langs
+    
+    //MARK: Utils
     public class func UIColorFromRGB(rgbValue: UInt) -> UIColor {
         return UIColor(
             red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,

@@ -10,7 +10,7 @@ import Foundation
 
 protocol ITMessagingServiceProtocol {
     
-    func send(message: Message, onCompletion: @escaping(Bool) -> Void)
-    func get(messages: [Message], onCompletion: @escaping(Bool) -> Void)
+    func send(message: Message, onCompletion: @escaping(NSError?) -> Void)
+    func get(messages: [Message], forConversation conversationId: String, onCompletion: @escaping([Message]?,NSError?) -> Void)
     func getChats(onCompletion: @escaping(Chats?, NSError?) -> Void)
 }

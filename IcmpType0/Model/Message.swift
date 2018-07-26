@@ -42,31 +42,4 @@ struct Message: Decodable {
         case rawData = "message"
         case type
     }
-    
-//    init(withString: Data, andType: MessageType ) {
-//        type = andType
-//        rawData = withString
-//        date = Calendar.current
-//        fakeDate = 12345
-//        sender = "Franco Risma"
-//    }
-//
-//    init(withString: Data, type: MessageType, date: Calendar, andSender: String) {
-//        rawData = withString
-//        self.type = type
-//        self.date = date
-//        fakeDate = 12345
-//        sender = andSender
-//    }
-    
-//    func set(data: Any, forType type: MessageType) {
-//        switch type {
-//        case .text:
-//            let text = data as? String ?? ""
-//            rawData = text.data(using: .utf8)!
-//        case .image:
-//            print("Imagen")
-//            //rawData = UIImagePNGRepresentation(data)
-//        }
-//    }
 }
