@@ -30,13 +30,12 @@ struct Messages: Decodable {
 struct Message: Decodable {
     let type: MessageType
     var rawData: Data
-    //let date: Calendar
-    let date: Int
+    let date: Date
     let userId: String
     let userName: String
     
     enum CodingKeys : String, CodingKey {
-        case date = "timestamp"
+        case date = "time"
         case userName = "name"
         case userId = "member"
         case rawData = "message"

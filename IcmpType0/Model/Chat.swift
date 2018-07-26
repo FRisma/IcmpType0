@@ -18,7 +18,7 @@ struct Chats: Decodable {
 
 struct Chat: Decodable {
     let lastMessage: String!
-    let date: Int
+    let date: Date
     let member: String
     let memberName: String
     

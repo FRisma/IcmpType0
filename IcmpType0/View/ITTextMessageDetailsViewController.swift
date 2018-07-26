@@ -23,13 +23,21 @@ class ITTextMessageDetailsViewController: UIViewController, UITableViewDelegate,
     
     init(withMessage message: Message) {
         super.init(nibName: nil, bundle: nil)
-        let displayText = String(data: message.rawData, encoding: String.Encoding.utf8) as! String
+        let displayText = String(data: message.rawData, encoding: String.Encoding.utf8)
         textMessageLabel.text = displayText
         senderLabel.text = message.userName
-        detecetdURLs = ITStringAnalyzer.urlArrayIn(string: displayText)
-        dateLabel.text = "02/05/1987"
+        detecetdURLs = ITStringAnalyzer.urlArrayIn(string: displayText ?? "")
         senderTitleLabel.text = "Remitente"
         dateTitleLabel.text = "Fecha"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
+        dateLabel.text = dateFormatter.string(from: message.date)
+        
+        view.backgroundColor = .clear
+        let backgroundLayer = GradientColors(withTopColor: UIColor(0x8fba92), bottomColor: UIColor(0xbef7c2)).layer
+        backgroundLayer?.frame = view.frame
+        view.layer.insertSublayer(backgroundLayer!, at: 0)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -63,12 +71,7 @@ class ITTextMessageDetailsViewController: UIViewController, UITableViewDelegate,
             linksTableView.dataSource = self
             linksTableView.register(UITableViewCell.self, forCellReuseIdentifier: "links")
             linksTableView.tableFooterView = UIView()
-            let headerView = UILabel()
-            headerView.textAlignment = .left
-            headerView.text = "Links encontrados"
-            headerView.numberOfLines = 1
-            headerView.backgroundColor = .red
-            linksTableView.tableHeaderView = headerView
+            linksTableView.backgroundColor = .clear
             view.addSubview(linksTableView)
         }
         
@@ -77,19 +80,12 @@ class ITTextMessageDetailsViewController: UIViewController, UITableViewDelegate,
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        var newFrame = senderTitleLabel.frame
-        newFrame.origin.x = 0
-        
-        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: {
-            self.senderTitleLabel.frame = newFrame
-        }, completion: nil)
-        
-        var newFrame2 = senderLabel.frame
-        newFrame2.origin.x = 113
-        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: {
-            self.senderLabel.frame = newFrame2
-        }, completion: nil)
+        self.startAnimating()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.applyConstraints()
     }
     
     //MARK: UITableView
@@ -118,40 +114,80 @@ class ITTextMessageDetailsViewController: UIViewController, UITableViewDelegate,
     
     //MARK: Internal
     private func applyConstraints() {
-        senderTitleLabel.snp.makeConstraints { (make) in
+        senderTitleLabel.snp.remakeConstraints { (make) in
             if #available(iOS 11, *) {
                 make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
             } else {
                 make.top.equalTo(self.view)
             }
-            make.right.equalTo(view).multipliedBy(0.5)
+            make.right.equalTo(view.snp.left) // Out of bounds so it can be animated
         }
         
-        senderLabel.snp.makeConstraints { (make) in
+        senderLabel.snp.remakeConstraints { (make) in
             make.top.equalTo(senderTitleLabel)
-            make.left.equalTo(senderTitleLabel.snp.right)
+            make.left.equalTo(view.snp.right) // Out of bounds so it can be animated
         }
         
-        dateTitleLabel.snp.makeConstraints { (make) in
+        dateTitleLabel.snp.remakeConstraints { (make) in
             make.top.equalTo(senderTitleLabel.snp.bottom).offset(20)
-            make.left.right.equalTo(senderTitleLabel)
+            make.right.equalTo(view.snp.left) // Out of bounds so it can be animated
         }
         
-        dateLabel.snp.makeConstraints { (make) in
+        dateLabel.snp.remakeConstraints { (make) in
             make.top.equalTo(dateTitleLabel)
-            make.left.equalTo(dateTitleLabel.snp.right)
+            make.left.equalTo(view.snp.right) // Out of bounds so it can be animated
         }
         
-        textMessageLabel.snp.makeConstraints { (make) in
+        textMessageLabel.snp.remakeConstraints { (make) in
             make.top.equalTo(dateTitleLabel.snp.bottom).offset(20)
             make.left.right.equalTo(view)
         }
         
         if linksTableView != nil {
-            linksTableView.snp.makeConstraints { (make) in
+            linksTableView.snp.remakeConstraints { (make) in
                 make.top.equalTo(textMessageLabel.snp.bottom).offset(20)
                 make.left.right.bottom.equalTo(view)
             }
         }
+    }
+    
+    private func startAnimating() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.senderTitleLabel.snp.remakeConstraints { (make) in
+                if #available(iOS 11, *) {
+                    make.top.equalTo(self.view.safeAreaLayoutGuide.snp.topMargin)
+                } else {
+                    make.top.equalTo(self.view)
+                }
+                make.right.equalTo(self.view).multipliedBy(0.48)
+            }
+            self.senderTitleLabel.superview?.layoutIfNeeded()
+        })
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.senderLabel.snp.remakeConstraints { (remake) in
+                remake.top.equalTo(self.senderTitleLabel)
+                remake.left.equalTo(self.view.snp.centerX)
+            }
+            self.senderLabel.superview?.layoutIfNeeded()
+        })
+        
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseIn, animations: {
+            self.dateTitleLabel.snp.remakeConstraints { (remake) in
+                remake.top.equalTo(self.senderTitleLabel.snp.bottom).offset(20)
+                remake.right.equalTo(self.view).multipliedBy(0.48)
+            }
+            self.dateTitleLabel.superview?.layoutIfNeeded()
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseIn, animations: {
+            self.dateLabel.snp.remakeConstraints { (remake) in
+                remake.top.equalTo(self.dateTitleLabel)
+                remake.left.equalTo(self.view.snp.centerX)
+            }
+            self.dateLabel.superview?.layoutIfNeeded()
+        }, completion: { (finished) in
+            self.view.shake(view: self.textMessageLabel)
+        })   
     }
 }

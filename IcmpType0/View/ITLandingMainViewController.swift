@@ -103,10 +103,13 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
         if let aConv = peopleListFiltered?[indexPath.row] {
             cell.profileName.text = aConv.memberName
             cell.messageLabel.text = aConv.lastMessage
-            cell.dateLabel.text = String(aConv.date)
             let profPictureName = String("profile"+aConv.memberName.replacingOccurrences(of: " ", with: ""))
             let picture = UIImage(named: profPictureName)
             cell.profileImage.image = picture
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+            cell.dateLabel.text = dateFormatter.string(from: aConv.date)
         }
         return cell
     }

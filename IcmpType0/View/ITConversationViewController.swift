@@ -40,7 +40,7 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         super.viewDidLoad()
         self.navigationItem.largeTitleDisplayMode = .never
         self.title = "BotChat"
-        view.backgroundColor = Utils.UIColorFromRGB(rgbValue: 0xeaeaea)
+        view.backgroundColor = UIColor(0xeaeaea)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -175,7 +175,7 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: 10, height: 40)
         imageView.isUserInteractionEnabled = true
-        imageView.backgroundColor = isSending ? Utils.UIColorFromRGB(rgbValue: 0xe2ffe3) : Utils.UIColorFromRGB(rgbValue: 0xc4c4c4)
+        imageView.backgroundColor = isSending ? UIColor(0xe2ffe3) : UIColor(0xc4c4c4)
         imageView.layer.cornerRadius = 8.0
         imageView.clipsToBounds = true
         imageView.addGestureRecognizer(self.singleTapGestureForDetails())
@@ -188,9 +188,9 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         message.lineBreakMode = .byWordWrapping
         message.text = text
         message.font = .systemFont(ofSize: 20, weight: .light)
-        message.textColor = isSending ? Utils.UIColorFromRGB(rgbValue: 0x28602a) : Utils.UIColorFromRGB(rgbValue: 0x7a7a7a)
+        message.textColor = isSending ? UIColor(0x28602a) : UIColor(0x7a7a7a)
         message.textAlignment = .center
-        message.backgroundColor = isSending ? Utils.UIColorFromRGB(rgbValue: 0xe2ffe3) : Utils.UIColorFromRGB(rgbValue: 0xc4c4c4)
+        message.backgroundColor = isSending ? UIColor(0xe2ffe3) : UIColor(0xc4c4c4)
         message.isUserInteractionEnabled = true
         message.layer.masksToBounds = true;
         message.layer.cornerRadius = 10.0;

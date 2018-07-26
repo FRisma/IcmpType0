@@ -22,7 +22,7 @@
 		CE2B08D12100E3BC004D7D0B /* ITLandingMainViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08D02100E3BC004D7D0B /* ITLandingMainViewPresenter.swift */; };
 		CE2B08D32100E493004D7D0B /* ITLandingMainViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08D22100E493004D7D0B /* ITLandingMainViewControllerProtocol.swift */; };
 		CE2B08D52100E4C6004D7D0B /* ITConversationViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08D42100E4C6004D7D0B /* ITConversationViewControllerProtocol.swift */; };
-		CE2B08D82100E4F3004D7D0B /* ITConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08D72100E4F3004D7D0B /* ITConstants.swift */; };
+		CE2B08D82100E4F3004D7D0B /* ITUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08D72100E4F3004D7D0B /* ITUtils.swift */; };
 		CE2B08DA21012AA0004D7D0B /* ITLandingMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2B08D921012AA0004D7D0B /* ITLandingMainTableViewCell.swift */; };
 		CE5514062106629300B1A6C4 /* ITMessagingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5514052106629300B1A6C4 /* ITMessagingService.swift */; };
 		CE55140E2106632C00B1A6C4 /* ITMessagingProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE55140D2106632C00B1A6C4 /* ITMessagingProviderProtocol.swift */; };
@@ -71,7 +71,7 @@
 		CE2B08D02100E3BC004D7D0B /* ITLandingMainViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITLandingMainViewPresenter.swift; sourceTree = "<group>"; };
 		CE2B08D22100E493004D7D0B /* ITLandingMainViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITLandingMainViewControllerProtocol.swift; sourceTree = "<group>"; };
 		CE2B08D42100E4C6004D7D0B /* ITConversationViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITConversationViewControllerProtocol.swift; sourceTree = "<group>"; };
-		CE2B08D72100E4F3004D7D0B /* ITConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITConstants.swift; sourceTree = "<group>"; };
+		CE2B08D72100E4F3004D7D0B /* ITUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITUtils.swift; sourceTree = "<group>"; };
 		CE2B08D921012AA0004D7D0B /* ITLandingMainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITLandingMainTableViewCell.swift; sourceTree = "<group>"; };
 		CE5514052106629300B1A6C4 /* ITMessagingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITMessagingService.swift; sourceTree = "<group>"; };
 		CE55140D2106632C00B1A6C4 /* ITMessagingProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITMessagingProviderProtocol.swift; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 		CE2B08D62100E4DF004D7D0B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				CE2B08D72100E4F3004D7D0B /* ITConstants.swift */,
+				CE2B08D72100E4F3004D7D0B /* ITUtils.swift */,
 				CE86E1DF2109211F004CC330 /* ITStringAnalyzer.swift */,
 				CEA253B9210A219B008D12BA /* ITNotifications.swift */,
 			);
@@ -501,7 +501,7 @@
 				CE55140E2106632C00B1A6C4 /* ITMessagingProviderProtocol.swift in Sources */,
 				CE2B08D32100E493004D7D0B /* ITLandingMainViewControllerProtocol.swift in Sources */,
 				CE2B08CD2100E392004D7D0B /* ITConversationPresenterProtocol.swift in Sources */,
-				CE2B08D82100E4F3004D7D0B /* ITConstants.swift in Sources */,
+				CE2B08D82100E4F3004D7D0B /* ITUtils.swift in Sources */,
 				CE2B08CF2100E3B0004D7D0B /* ITLandingMainViewPresenterProtocol.swift in Sources */,
 				CE2B08D52100E4C6004D7D0B /* ITConversationViewControllerProtocol.swift in Sources */,
 				CEC42B6D2105438300EBD862 /* Message.swift in Sources */,

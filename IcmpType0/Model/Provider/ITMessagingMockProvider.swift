@@ -11,8 +11,10 @@ import Foundation
 class ITMessagingMockProvider: ITMessagingProviderProtocol {
     
     static let shared = ITMessagingMockProvider()
+    private let decoder = JSONDecoder()
     
     private init() {
+        decoder.dateDecodingStrategy = .iso8601
     }
     
     func send(message: Message, onCompletion: (NSError?) -> Void) {
@@ -26,8 +28,8 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
     }
     
     func getMessages(onCompletion: (Messages?, NSError?) -> Void) {
-        guard let messages = try? JSONDecoder().decode(Messages.self, from: mockChats.data(using: .utf8)!) else {
-            print("Error: Couldn't decode data into Chat")
+        guard let messages = try? decoder.decode(Messages.self, from: mockMessages.data(using: .utf8)!) else {
+            print("Error: Couldn't decode data into Messages")
             onCompletion(nil,NSError(domain:"com.icmpType0", code:500, userInfo:nil) )
             return
         }
@@ -35,7 +37,7 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
     }
     
     func getChats(onCompletion: (Chats?, NSError?) -> Void) {
-        guard let chats = try? JSONDecoder().decode(Chats.self, from: mockChats.data(using: .utf8)!) else {
+        guard let chats = try? decoder.decode(Chats.self, from: mockChats.data(using: .utf8)!) else {
             print("Error: Couldn't decode data into Chat")
             onCompletion(nil,NSError(domain:"com.icmpType0", code:500, userInfo:nil) )
             return
@@ -44,12 +46,8 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
     }
     
     // MARK: Internal
-    
     private func createReceivingMessageFor(data: Data, type: MessageType) -> Message {
-        let date = 02051987
-        let uid = "999"
-        
-        return Message(type: type, rawData: data, date: date, userId: uid, userName: "The Bot")
+        return Message(type: type, rawData: data, date: Date(), userId: "999", userName: "The Bot")
     }
     
     let mockChats = """
@@ -57,49 +55,49 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
                         "chat": [
                             {
                                 "lastMessage": "Para un argentino no hay nada mejor que otro argentino",
-                                "time": 1234566,
+                                "time": "2018-05-19T16:39:57-22:00",
                                 "member": "8",
                                 "memberAlias": "Pedro Risma"
                             },
                             {
                                 "lastMessage": "Would you like to learn Swift?",
-                                "time": 1234566,
+                                "time": "2018-07-19T08:39:57-20:00",
                                 "member": "2",
                                 "memberAlias": "Rocio Gatica"
                             },
                             {
-                                "lastMessage": "Te amo papá",
-                                "time": 1234566,
+                                "lastMessage": "Te amo papá, feliz cumple",
+                                "time": "2018-05-02T04:00:57-00:00",
                                 "member": "3",
                                 "memberAlias": "Emilia Risma"
                             },
                             {
                                 "lastMessage": "Abrigate que está frío",
-                                "time": 1234566,
+                                "time": "2018-12-19T16:39:57-08:00",
                                 "member": "4",
                                 "memberAlias": "Marina Flores"
                             },
                             {
                                 "lastMessage": "Ya compre las pelotas para el metegol",
-                                "time": 1827364872,
+                                "time": "2018-12-19T16:39:57-08:00",
                                 "member": "5",
                                 "memberAlias": "Elias Medina"
                             },
                             {
                                 "lastMessage": "Feliz día",
-                                "time": 1234566,
+                                "time": "2018-12-19T16:39:57-08:00",
                                 "member": "6",
                                 "memberAlias": "Juanma Rodriguez"
                             },
                             {
-                                "lastMessage": "7 - 0 le ganamos, nos deben una coca",
-                                "time": 1234566,
+                                "lastMessage": "7 - 0 les ganamos, nos deben una coca",
+                                "time": "2018-12-19T16:39:57-08:00",
                                 "member": "7",
                                 "memberAlias": "Carlos Albornoz"
                             },
                             {
                                 "lastMessage": "Hola, que haces?",
-                                "time": 12345677,
+                                "time": "2018-12-19T16:39:57-08:00",
                                 "member": "1",
                                 "memberAlias": "Franco Risma"
                             }
@@ -115,19 +113,19 @@ class ITMessagingMockProvider: ITMessagingProviderProtocol {
                                     "message": "Hello",
                                     "name": "Franco Risma",
                                     "member": "1",
-                                    "timestamp": 1234566
+                                    "time": "2018-12-19T16:39:57-08:00"
                                 },
                                 {
                                     "message": "How are you?",
                                     "name": "Bot",
                                     "member": "999",
-                                    "timestamp": 354355535
+                                    "time": "2018-12-19T16:39:57-08:00"
                                 },
                                 {
                                     "message": "Fine thanks",
                                     "name": "Franco Risma",
                                     "member": "1",
-                                    "timestamp": 123456342
+                                    "time": "2018-12-19T16:39:57-08:00"
                                 }
                         ]
                     }

@@ -85,9 +85,7 @@ class ITConversationPresenter: ITConversationPresenterProtocol {
     
     // MARK: Internal
     private func createSendingMessageFor(data: Data, type: MessageType) -> Message {
-        let date = 02051987
         let uid = "1"
-        
-        return Message(type: type, rawData: data, date: date, userId: uid, userName: "Franco Risma")
+        return Message(type: type, rawData: data, date: Date(), userId: uid, userName: "Franco Risma")
     }
 }

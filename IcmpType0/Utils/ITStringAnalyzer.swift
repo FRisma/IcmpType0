@@ -34,7 +34,7 @@ class ITStringAnalyzer {
         } else {
             var fullURLString = kHttpsPrefix
             fullURLString += string
-            return URL(string: string)
+            return URL(string: fullURLString)
         }
     }
 }
