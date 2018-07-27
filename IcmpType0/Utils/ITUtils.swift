@@ -12,6 +12,13 @@ import UIKit
 
 let kITLang = "lang"
 
+
+/**
+* @brief Add the ability for UIColor to be initialized with hex values
+*
+* @discussion Currently there is no implementation in the iOS SDK for initializing a color from
+* an hexadecimal value
+*/
 extension UIColor {
     convenience init(_ hex: UInt) {
         self.init(
@@ -23,6 +30,11 @@ extension UIColor {
     }
 }
 
+/**
+ * @brief Shake animation for every view
+ *
+ * @discussion Just call yourview.shake() and you'll get the animation
+ */
 extension UIView {
     func shake(view: UIView) {
         let animation = CAKeyframeAnimation()

@@ -14,6 +14,7 @@ class ITWebBrowserViewController: UIViewController, WKNavigationDelegate {
     
     private var webView: WKWebView!
     private var url: URL
+    let spinnerView = ITLoadingIndicatorView.shared
     
     //MARK: Initializers
     init(withURL url: URL) {
@@ -35,6 +36,7 @@ class ITWebBrowserViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.showLoadingIndicator()
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
     }
@@ -44,11 +46,48 @@ class ITWebBrowserViewController: UIViewController, WKNavigationDelegate {
         completionHandler(.performDefaultHandling,nil)
     }
     
-    internal func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    /*
+     * While loading the web view, we evaluate for response's error status codes
+     */
+    internal func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         decisionHandler(.allow)
     }
     
-    internal func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        decisionHandler(.allow)
+    /*
+     * WebView starts receiving content
+     */
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        self.hideLoadingIndicator()
+    }
+    
+    /*
+     * The URL to load is valid, but there webServer is not responding
+     */
+    internal func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        print("Server unreachable. loadRequest: failed with error:\(error)")
+        self.handleWebViewError(error)
+    }
+    
+    internal func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        print("Server unreachable. loadRequest: failed with error:\(error)")
+        self.handleWebViewError(error)
+    }
+
+    //MARK: Internal
+    private func showLoadingIndicator() {
+        self.view.addSubview(spinnerView)
+    }
+    
+    private func hideLoadingIndicator() {
+        spinnerView.removeFromSuperview()
+    }
+    
+    private func handleWebViewError(_ error: Error) {
+        self.hideLoadingIndicator()
+        let alert = UIAlertController(title: "Error", message: "Web could not be loaded", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Back", style: .default, handler: { (action) in
+            self.navigationController?.popViewController(animated: true)
+        }))
+        self.navigationController?.present(alert, animated: true, completion: nil)
     }
 }
