@@ -20,6 +20,7 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     private let textField   = UITextField()
     
     private var lastBottomConstraint: Constraint?
+    private var keyboardHeightLayoutConstraint: Constraint?
     private var lastView : UIView?
     
     private var messageCount = 0 // Acumultator of sent and received messages - Used for matching presenter's messages
@@ -38,11 +39,7 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.largeTitleDisplayMode = .never
-        self.title = "BotChat"
         view.backgroundColor = UIColor(0xeaeaea)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         self.setupAttachmentButton()
         self.setupImagePicker()
@@ -64,6 +61,18 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         }
         
         presenter.setViewDelegate(delegate: self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     // MARK: ITConversationViewControllerProtocol
@@ -241,7 +250,6 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
         })
     }
     
-    
     private func singleTapGestureForDetails() -> UITapGestureRecognizer {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(messageTapped(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1;
@@ -269,18 +277,34 @@ class ITConversationViewController: UIViewController, ITConversationViewControll
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        var userInfo = notification.userInfo!
-        var keyboardFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        let info = notification.userInfo!
+        let keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let duration = info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
+        let curve = info[UIKeyboardAnimationCurveUserInfoKey] as! UInt
         
-        var contentInset:UIEdgeInsets = self.scrollView.contentInset
-        contentInset.bottom = keyboardFrame.size.height
-        scrollView.contentInset = contentInset
+        UIView.animate(withDuration: TimeInterval(truncating: duration), delay: 0, options: UIViewAnimationOptions(rawValue: curve), animations: {
+            self.textField.snp.remakeConstraints { (make) in
+                make.left.right.equalTo(self.view).inset(10)
+                make.bottom.equalTo(-1*(keyboardFrame.size.height + 2))
+                make.height.equalTo(30)
+            }
+            self.textField.layoutIfNeeded()
+        }, completion: nil)
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
-        scrollView.contentInset = contentInset
+        let info = notification.userInfo!
+        let duration = info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
+        let curve = info[UIKeyboardAnimationCurveUserInfoKey] as! UInt
+        
+        UIView.animate(withDuration: TimeInterval(truncating: duration), delay: 0, options: UIViewAnimationOptions(rawValue: curve), animations: {
+            self.textField.snp.remakeConstraints { (make) in
+                make.left.right.equalTo(self.view).inset(10)
+                make.bottom.equalTo(self.view).offset(-2)
+                make.height.equalTo(30)
+            }
+            self.textField.layoutIfNeeded()
+        })
     }
     
     @objc func showAttachmentOptions() {

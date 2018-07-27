@@ -70,7 +70,7 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
         backItem.title = "Chats"
         navigationItem.backBarButtonItem = backItem
         let convVC = ITConversationViewController(withPresenter: ITConversationPresenter())
-        convVC.title = "Franco Risma"
+        convVC.title = "Best Friend"
         self.navigationController?.pushViewController(convVC, animated: true)
     }
     
@@ -79,6 +79,7 @@ class ITLandingMainViewController: UIViewController, ITLandingMainViewController
         backItem.title = "Chats"
         navigationItem.backBarButtonItem = backItem
         let newConvVC = ITConversationViewController(withPresenter: ITConversationPresenter())
+        newConvVC.title = "The Bot"
         self.navigationController?.pushViewController(newConvVC, animated: true)
     }
     
